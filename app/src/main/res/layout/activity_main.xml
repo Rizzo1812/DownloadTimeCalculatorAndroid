@@ -1,7 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/main_activity_layout"
     android:orientation="vertical">
 
     <LinearLayout
@@ -107,9 +117,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="Simulate"
-            android:textOn="⚙"
-            android:textOff="🛑"
-            android:showText="true"
+            android:thumbTint="@color/teal_200"
             tools:checked="false" />
 
     </LinearLayout>
@@ -117,7 +125,7 @@
     <Space
         android:layout_width="wrap_content"
         android:layout_height="25dp"/>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -179,7 +187,7 @@
 
 
         <TextView
-            android:id="@+id/txtDownloaded"
+            android:id="@+id/textDownloaded1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5pt"
@@ -192,7 +200,7 @@
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/textPercentage"
+            android:id="@+id/textPercentage1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:textSize="10pt"
             android:text="TextView" />
@@ -204,10 +212,17 @@
 
     </LinearLayout>
 
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1"/>
-
 </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="#673AB7"
+        android:onClick="onBtnAddClick"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#1BA11B"
+        app:fabSize="mini" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
