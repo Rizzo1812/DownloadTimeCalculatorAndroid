@@ -223,6 +223,6 @@
         android:backgroundTint="#673AB7"
         android:onClick="onBtnAddClick"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#1BA11B"
+        app:backgroundTint="#AB673AB7"
         app:fabSize="mini" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
