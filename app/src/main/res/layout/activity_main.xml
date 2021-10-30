@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5pt"
-            android:text="------"
+            android:text="TextSpeed"
             android:textSize="10pt"/>
 
         <Space
@@ -161,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:textSize="10pt"
         android:layout_marginRight="5pt"
-        android:text="TextView" />
+        android:text="TextTime" />
 
 
     </LinearLayout>
@@ -191,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5pt"
-            android:text="------"
+            android:text="TextDownloaded"
             android:textSize="10pt"/>
 
         <Space
@@ -203,7 +203,7 @@
             android:id="@+id/textPercentage1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:textSize="10pt"
-            android:text="TextView" />
+            android:text="TextPercentage" />
 
         <Space
             android:layout_width="0dp"

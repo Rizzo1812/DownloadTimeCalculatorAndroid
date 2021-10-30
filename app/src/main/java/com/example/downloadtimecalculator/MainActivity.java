@@ -10,11 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout layout;
-    ArrayList<View> listOfViews = new ArrayList<>();
+    ArrayList<DownloadSimulator> listOfDownloadSimulators = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
             public void onFinish() {
                 progressBar.setProgress(100);
-                ProgressBar pb = listOfViews.get(0).findViewById(R.id.progressBar);
-                pb.setProgress(0);
-                pb = listOfViews.get(1).findViewById(R.id.progressBar);
-                pb.setProgress(0);
             }
         };
 
@@ -53,11 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void addNewDownloader(){
-        View view = getLayoutInflater().inflate(R.layout.download_simulator, null);
-        layout.addView(view);
-        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        progressBar.setProgress(100);
-        listOfViews.add(view);
+        View newDownloaderView = getLayoutInflater().inflate(R.layout.download_simulator, null);
+        layout.addView(newDownloaderView);
+        listOfDownloadSimulators.add(new DownloadSimulator(newDownloaderView));
     }
 
     public void onBtnAddClick(View view) {
