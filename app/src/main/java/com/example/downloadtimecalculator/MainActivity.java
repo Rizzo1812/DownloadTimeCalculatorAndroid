@@ -7,10 +7,8 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         cd1.start();
-
     }
 
 
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public void addNewDownloader(){
         View newDownloaderView = getLayoutInflater().inflate(R.layout.download_simulator, null);
         layout.addView(newDownloaderView);
-        listOfDownloadSimulators.add(new DownloadSimulator(newDownloaderView));
+        listOfDownloadSimulators.add(new DownloadSimulator(newDownloaderView,this));
     }
 
     public void onBtnAddClick(View view) {
