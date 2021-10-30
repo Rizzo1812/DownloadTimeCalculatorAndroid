@@ -42,17 +42,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    buttonCalc.setEnabled(false);
-                    floatingAddSimulator.setEnabled(false);
+                    buttonCalc.setEnabled(true);
+                    floatingAddSimulator.setVisibility(View.INVISIBLE);
                     for (DownloadSimulator simulator : listOfDownloadSimulators) {
                         simulator.simulate();
                     }
                 }else{
                     for (DownloadSimulator simulator : listOfDownloadSimulators) {
                         simulator.reset();
-                        switchRunning.setEnabled(false);
                     }
-                    floatingAddSimulator.setEnabled(true);
+                    switchRunning.setEnabled(false);
+                    floatingAddSimulator.setVisibility(View.VISIBLE);
                     buttonCalc.setEnabled(true);
                 }
             }
