@@ -2,6 +2,7 @@ package com.example.downloadtimecalculator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,6 +21,7 @@ public class DownloadSimulator{
     private final TextView textDownloaded;
     private final TextView textPercentage;
     private int secondsToDownload;
+    private CountDownTimer clock;
     public boolean ready;
 
     public DownloadSimulator(View view,Activity mainActivity){
@@ -35,6 +37,7 @@ public class DownloadSimulator{
 
     public void reset(){
         ready = false;
+        if(clock != null) clock.cancel();
         progressBar.setProgress(0);
         editTextBandwidth.setText("");
         textSpeed.setText("");
@@ -67,7 +70,23 @@ public class DownloadSimulator{
     }
 
     public void simulate(){
-        //TODO
+        if(secondsToDownload == 0 || secondsToDownload == -1) return;
+
+        final int timeNeeded = secondsToDownload * 1000;
+
+        clock = new CountDownTimer(timeNeeded, 50) {
+            public void onTick(long millisUntilFinished) {
+                long finishedSeconds = timeNeeded - millisUntilFinished;
+                int total = (int) (((float)finishedSeconds / (float)timeNeeded) * 100.0);
+                progressBar.setProgress(total);
+            }
+
+            public void onFinish() {
+                progressBar.setProgress(100);
+            }
+        };
+
+        clock.start();
     }
 
     private double convertToB(double fileSize, String unitOfMeasure){

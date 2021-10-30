@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    buttonCalc.setEnabled(true);
+                    buttonCalc.setEnabled(false);
                     floatingAddSimulator.setVisibility(View.INVISIBLE);
                     for (DownloadSimulator simulator : listOfDownloadSimulators) {
                         simulator.simulate();
@@ -56,27 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        /*
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-
-        final int timeNeeded = 10000;
-
-        CountDownTimer cd1 = new CountDownTimer(timeNeeded, 50) {
-            public void onTick(long millisUntilFinished) {
-
-                long finishedSeconds = timeNeeded - millisUntilFinished;
-                int total = (int) (((float)finishedSeconds / (float)timeNeeded) * 100.0);
-                progressBar.setProgress(total);
-
-            }
-
-            public void onFinish() {
-                progressBar.setProgress(100);
-            }
-        };
-
-        cd1.start();*/
     }
 
 
