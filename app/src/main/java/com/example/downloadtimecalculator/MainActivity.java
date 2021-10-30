@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     public void addNewDownloader(){
         View newDownloaderView = getLayoutInflater().inflate(R.layout.download_simulator, null);
         layout.addView(newDownloaderView);
