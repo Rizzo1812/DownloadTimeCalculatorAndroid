@@ -8,21 +8,19 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout layout;
-    ArrayList<DownloadSimulator> listOfDownloadSimulators = new ArrayList<>();
+    LinkedList<DownloadSimulator> listOfDownloadSimulators = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         layout =  findViewById(R.id.main_activity_layout);
-
+        /*
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         final int timeNeeded = 10000;
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        cd1.start();
+        cd1.start();*/
     }
 
 
@@ -54,5 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnAddClick(View view) {
         addNewDownloader();
+    }
+
+    public void onBtnCalcClick(View view) {
+        for (DownloadSimulator simulator : listOfDownloadSimulators) {
+            simulator.calcDownloadTime();
+        }
     }
 }
