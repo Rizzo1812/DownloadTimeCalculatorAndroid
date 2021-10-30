@@ -23,7 +23,6 @@
             android:id="@+id/editTxtFileSize"
             android:layout_width="92dp"
             android:layout_height="wrap_content"
-
             android:hint="File size"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
@@ -66,7 +65,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:onClick="onBtnCalcClick"
-            android:text="Calc" />
+            android:text="Calc"/>
     </LinearLayout>
 
     <LinearLayout
@@ -112,14 +111,15 @@
             android:layout_weight="1"/>
 
         <Switch
-            android:id="@+id/switchRunning1"
+            android:id="@+id/switchRunning"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="Simulate"
             android:thumbTint="@color/teal_200"
-            tools:checked="false" />
+            tools:checked="false"
+            android:enabled="false"/>
 
     </LinearLayout>
 
@@ -184,9 +184,6 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
-
-
         <TextView
             android:id="@+id/textDownloaded1"
             android:layout_width="wrap_content"
@@ -216,7 +213,7 @@
 </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/floatingAddSimulator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
