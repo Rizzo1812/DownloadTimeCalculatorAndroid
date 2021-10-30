@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingAddSimulator;
     LinkedList<DownloadSimulator> listOfDownloadSimulators = new LinkedList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
