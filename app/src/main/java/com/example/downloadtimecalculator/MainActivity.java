@@ -1,6 +1,7 @@
 package com.example.downloadtimecalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout layout;
+    NestedScrollView scrollView;
     EditText editTxtFileSize;
     Switch switchRunning;
     Button buttonCalc;
@@ -31,12 +33,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         layout =  findViewById(R.id.main_activity_layout);
+        scrollView = findViewById(R.id.scrollView);
         editTxtFileSize = findViewById(R.id.editTxtFileSize);
         buttonCalc = findViewById(R.id.buttonCalc);
         floatingAddSimulator = findViewById(R.id.floatingAddSimulator);
         addNewDownloader();
 
-        switchRunning = (Switch)  findViewById(R.id.switchRunning);
+        switchRunning = (Switch) findViewById(R.id.switchRunning);
         switchRunning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -56,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY > oldScrollY) {
+                floatingAddSimulator.hide();
+            } else {
+                floatingAddSimulator.show();
+            }
+        });
+
     }
 
     public void addNewDownloader(){
