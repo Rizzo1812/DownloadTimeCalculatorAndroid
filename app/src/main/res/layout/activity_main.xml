@@ -5,212 +5,128 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true">
 
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
-    android:id="@+id/main_activity_layout"
-    android:orientation="vertical">
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fitsSystemWindows="true"
+        android:id="@+id/main_activity_layout"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTxtFileSize"
-            android:layout_width="92dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="File size"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:maxLength="8"
-            android:text="" />
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <RadioGroup
-            android:id="@+id/radioGroupSize"
+            <EditText
+                android:id="@+id/editTxtFileSize"
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:hint="File size"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:maxLength="8"
+                android:text="" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:checkedButton="@+id/radioButtonGB">
+
+                <RadioButton
+                    android:id="@+id/radioButtonKB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="KB" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonMB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="MB" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonGB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="GB" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/buttonCalc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:onClick="onBtnCalcClick"
+                android:text="Calc"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:checkedButton="@+id/radioButtonGB">
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioButtonKB"
+            <RadioGroup
+                android:id="@+id/radioGroupBandwidth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="KB" />
+                android:orientation="horizontal"
+                android:checkedButton="@+id/radioButtonMbps">
 
-            <RadioButton
-                android:id="@+id/radioButtonMB"
+                <RadioButton
+                    android:id="@+id/radioButtonKbps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kb/s" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonMbps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mb/s" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonGbps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Gb/s" />
+
+            </RadioGroup>
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <Switch
+                android:id="@+id/switchRunning"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="MB" />
+                android:text="Simulate"
+                android:thumbTint="@color/teal_200"
+                tools:checked="false"
+                android:enabled="false"/>
 
-            <RadioButton
-                android:id="@+id/radioButtonGB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="GB" />
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/buttonCalc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:onClick="onBtnCalcClick"
-            android:text="Calc"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="horizontal">
-
-        <RadioGroup
-            android:id="@+id/radioGroupBandwidth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:checkedButton="@+id/radioButtonMbps">
-
-            <RadioButton
-                android:id="@+id/radioButtonKbps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Kb/s" />
-
-            <RadioButton
-                android:id="@+id/radioButtonMbps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Mb/s" />
-
-            <RadioButton
-                android:id="@+id/radioButtonGbps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Gb/s" />
-
-        </RadioGroup>
+        </LinearLayout>
 
         <Space
-            android:layout_width="10dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <Switch
-            android:id="@+id/switchRunning"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:text="Simulate"
-            android:thumbTint="@color/teal_200"
-            tools:checked="false"
-            android:enabled="false"/>
-
+            android:layout_height="25dp"/>
     </LinearLayout>
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"/>
-<?ignore
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <EditText
-            android:id="@+id/editTextBandwidth1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:hint="Bandwidth"
-            android:maxLength="9"
-            android:inputType="numberDecimal" />
-
-        <TextView
-            android:id="@+id/textSpeed1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5pt"
-            android:text="TextSpeed"
-            android:textSize="10pt"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <TextView
-        android:id="@+id/textTime1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:textSize="10pt"
-        android:layout_marginRight="5pt"
-        android:text="TextTime" />
-
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="0"
-        android:layout_marginHorizontal="10dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textDownloaded1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5pt"
-            android:text="TextDownloaded"
-            android:textSize="10pt"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:id="@+id/textPercentage1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:textSize="10pt"
-            android:text="TextPercentage" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-    ?>
-</LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingAddSimulator"
