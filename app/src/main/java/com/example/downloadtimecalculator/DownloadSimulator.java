@@ -41,18 +41,17 @@ public class DownloadSimulator{
         ready = false;
         if(clock != null) clock.cancel();
         progressBar.setProgress(0);
-        editTextBandwidth.setText("");
         textSpeed.setText("");
         textTime.setText("");
         textDownloaded.setText("");
         textPercentage.setText("");
-        secondsToDownload = 0;
+        secondsToDownload = -1;
         fileSize = 0;
         bandwidth = 0;
     }
 
     public void calcDownloadTime(){
-        if(!isSpeedSet()){
+        if(!isSpeedSet() || editTextBandwidth.getText().toString().equals(".")){
             reset();
             return;
         }
@@ -61,27 +60,32 @@ public class DownloadSimulator{
         fileSize = convertToB(fileSize, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString());
         bandwidth = Double.parseDouble(editTextBandwidth.getText().toString());
         selectedRadioID = ((RadioGroup) (mainActivity.findViewById(R.id.radioGroupBandwidth))).getCheckedRadioButtonId();
-        textSpeed.setText(String.format(Locale.getDefault(),"%.3f %s",bandwidth/8, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString().toUpperCase()));
+        textSpeed.setText(String.format(Locale.ENGLISH,"%.3f %s",bandwidth/8, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString().toUpperCase()));
         bandwidth = convertToBps(bandwidth, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString());
         if (bandwidth != 0) {
             secondsToDownload = (int) Math.floor(fileSize / bandwidth);
             textTime.setText(timeFormat(secondsToDownload));
         } else {
-            secondsToDownload = -1;
-            textTime.setText("∞");
+            if(fileSize == 0){
+                secondsToDownload = 0;
+                textTime.setText(timeFormat(secondsToDownload));
+            }else {
+                secondsToDownload = -1;
+                textTime.setText("∞");
+            }
         }
         ready = true;
     }
 
     public void simulate(){
-        if(secondsToDownload == 0 || secondsToDownload == -1) return;
+        if(secondsToDownload == -1) return;
 
-        final int timeNeeded = secondsToDownload * 1000;
+        final long timeNeeded = secondsToDownload * 1000L;
         clock = new CountDownTimer(timeNeeded, 50) {
             public void onTick(long millisUntilFinished) {
                 long finishedSeconds = timeNeeded - millisUntilFinished;
                 double percentage = (((double)finishedSeconds / (double) timeNeeded) * 100.0);
-                textPercentage.setText(String.format(Locale.getDefault(),"%.2f%%",percentage));
+                textPercentage.setText(String.format(Locale.ENGLISH,"%.2f%%",percentage));
                 textDownloaded.setText(fileSizeFormat(bandwidth * finishedSeconds / 1000));
                 progressBar.setProgress((int)percentage);
             }
@@ -124,20 +128,20 @@ public class DownloadSimulator{
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
-        return String.format(Locale.getDefault(),"%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format(Locale.ENGLISH,"%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     private String fileSizeFormat(double fileSizeBytes){
        if(fileSizeBytes >= Math.pow(1024, 3)){
-           return String.format(Locale.getDefault(),"%.2f GB",fileSizeBytes / (Math.pow(1024, 3)));
+           return String.format(Locale.ENGLISH,"%.2f GB",fileSizeBytes / (Math.pow(1024, 3)));
        }
        if(fileSizeBytes >= Math.pow(1024, 2)){
-           return String.format(Locale.getDefault(),"%.2f MB",fileSizeBytes / (Math.pow(1024, 2)));
+           return String.format(Locale.ENGLISH,"%.2f MB",fileSizeBytes / (Math.pow(1024, 2)));
        }
         if(fileSizeBytes >= 1024){
-            return String.format(Locale.getDefault(),"%.2f KB",fileSizeBytes / 1024);
+            return String.format(Locale.ENGLISH,"%.2f KB",fileSizeBytes / 1024);
         }
-        return String.format(Locale.getDefault(),"%.2f B",fileSizeBytes);
+        return String.format(Locale.ENGLISH,"%.2f B",fileSizeBytes);
     }
 
     private boolean isSpeedSet(){

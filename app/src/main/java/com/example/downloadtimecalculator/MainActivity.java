@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -60,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (scrollY > oldScrollY) {
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, previousScrollX, previousScrollY) -> {
+            if (scrollY > previousScrollY) {
                 floatingAddSimulator.hide();
             } else {
-                floatingAddSimulator.show();
+                if(!switchRunning.isEnabled())
+                    floatingAddSimulator.show();
             }
         });
-
     }
 
     public void addNewDownloader(){
@@ -81,7 +79,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnCalcClick(View view) {
-        if(editTxtFileSize.getText().toString().equals("")){
+        View current = getCurrentFocus();
+        if (current != null) current.clearFocus();
+
+        if(editTxtFileSize.getText().toString().isEmpty() || editTxtFileSize.getText().toString().equals(".")){
             Toast.makeText(this, "Insert file size!",
                     Toast.LENGTH_LONG).show();
         }else{
