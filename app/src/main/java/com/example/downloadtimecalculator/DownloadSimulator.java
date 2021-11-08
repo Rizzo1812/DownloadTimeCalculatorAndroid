@@ -62,6 +62,11 @@ public class DownloadSimulator{
         selectedRadioID = ((RadioGroup) (mainActivity.findViewById(R.id.radioGroupBandwidth))).getCheckedRadioButtonId();
         textSpeed.setText(String.format(Locale.ENGLISH,"%.3f %s",bandwidth/8, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString().toUpperCase()));
         bandwidth = convertToBps(bandwidth, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString());
+
+        if(bandwidth <= 1){
+            editTextBandwidth.setText("0");
+            bandwidth = 0;
+        }
         if (bandwidth != 0) {
             secondsToDownload = (int) Math.floor(fileSize / bandwidth);
             textTime.setText(timeFormat(secondsToDownload));
