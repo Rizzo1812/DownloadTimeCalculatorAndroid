@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -71,7 +72,21 @@ public class MainActivity extends AppCompatActivity {
     public void addNewDownloader(){
         View newDownloaderView = getLayoutInflater().inflate(R.layout.download_simulator, null);
         layout.addView(newDownloaderView);
-        listOfDownloadSimulators.add(new DownloadSimulator(newDownloaderView,this));
+        DownloadSimulator newDownloaderSimulator = new DownloadSimulator(newDownloaderView,this);
+        listOfDownloadSimulators.add(newDownloaderSimulator);
+
+        ImageView deleteImgBtn = (ImageView)newDownloaderView.findViewById(R.id.deleteImgBtn);
+        deleteImgBtn.setOnClickListener(v -> {
+            listOfDownloadSimulators.remove(newDownloaderSimulator);
+            layout.removeView(newDownloaderView);
+            for (DownloadSimulator simulator : listOfDownloadSimulators) {
+                if(simulator.ready) {
+                    switchRunning.setEnabled(true);
+                    return;
+                }
+            }
+            switchRunning.setEnabled(false);
+        });
     }
 
     public void onBtnAddClick(View view) {
@@ -86,9 +101,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Insert file size!",
                     Toast.LENGTH_LONG).show();
         }else{
-            for (DownloadSimulator simulator : listOfDownloadSimulators) {
-                simulator.calcDownloadTime();
-                if(simulator.ready) switchRunning.setEnabled(true);
+            if(listOfDownloadSimulators.size() > 0){
+                for (DownloadSimulator simulator : listOfDownloadSimulators) {
+                    simulator.calcDownloadTime();
+                    if(simulator.ready) switchRunning.setEnabled(true);
+                }
+            }else{
+                Toast.makeText(this, "Add at least one download simulator!",
+                        Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-public class DownloadSimulator{
+public class DownloadSimulator {
     private final Activity mainActivity;
     private final ProgressBar progressBar;
     private final EditText editTextBandwidth;
@@ -20,13 +21,14 @@ public class DownloadSimulator{
     private final TextView textTime;
     private final TextView textDownloaded;
     private final TextView textPercentage;
+    private final ImageView deleteImgBtn;
     private int secondsToDownload;
     private double fileSize;
     private double bandwidth;
     private CountDownTimer clock;
     public boolean ready;
 
-    public DownloadSimulator(View view,Activity mainActivity){
+    public DownloadSimulator(View view,Activity mainActivity) {
         this.mainActivity = mainActivity;
         this.progressBar = view.findViewById(R.id.progressBar);
         this.editTextBandwidth = view.findViewById(R.id.editTextBandwidth);
@@ -34,10 +36,11 @@ public class DownloadSimulator{
         this.textTime = view.findViewById(R.id.textTime);
         this.textDownloaded = view.findViewById(R.id.textDownloaded);
         this.textPercentage = view.findViewById(R.id.textPercentage);
+        this.deleteImgBtn = view.findViewById(R.id.deleteImgBtn);
         this.reset();
     }
 
-    public void reset(){
+    public void reset() {
         ready = false;
         if(clock != null) clock.cancel();
         progressBar.setProgress(0);
@@ -45,12 +48,13 @@ public class DownloadSimulator{
         textTime.setText("");
         textDownloaded.setText("");
         textPercentage.setText("");
+        deleteImgBtn.setVisibility(View.VISIBLE);
         secondsToDownload = -1;
         fileSize = 0;
         bandwidth = 0;
     }
 
-    public void calcDownloadTime(){
+    public void calcDownloadTime() {
         if(!isSpeedSet() || editTextBandwidth.getText().toString().equals(".")){
             reset();
             return;
@@ -60,11 +64,12 @@ public class DownloadSimulator{
         fileSize = convertToB(fileSize, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString());
         bandwidth = Double.parseDouble(editTextBandwidth.getText().toString());
         selectedRadioID = ((RadioGroup) (mainActivity.findViewById(R.id.radioGroupBandwidth))).getCheckedRadioButtonId();
-        textSpeed.setText(String.format(Locale.ENGLISH,"%.3f %s",bandwidth/8, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString().toUpperCase()));
         bandwidth = convertToBps(bandwidth, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString());
+        textSpeed.setText(speedFormat(bandwidth));
 
         if(bandwidth <= 1){
             editTextBandwidth.setText("0");
+            textSpeed.setText("~0 B/s");
             bandwidth = 0;
         }
         if (bandwidth != 0) {
@@ -85,6 +90,7 @@ public class DownloadSimulator{
     public void simulate(){
         if(secondsToDownload == -1) return;
 
+        deleteImgBtn.setVisibility(View.INVISIBLE);
         final long timeNeeded = secondsToDownload * 1000L;
         clock = new CountDownTimer(timeNeeded, 50) {
             public void onTick(long millisUntilFinished) {
@@ -105,7 +111,7 @@ public class DownloadSimulator{
         clock.start();
     }
 
-    private double convertToB(double fileSize, String unitOfMeasure){
+    private double convertToB(double fileSize, String unitOfMeasure) {
         switch (unitOfMeasure){
             case "GB":
                 return fileSize * (Math.pow(1024,3));
@@ -129,14 +135,27 @@ public class DownloadSimulator{
         return -1;
     }
 
-    private String timeFormat(int seconds){
+    private String speedFormat(double Bps) {
+        if(Bps >= Math.pow(10,9)){
+            return String.format(Locale.ENGLISH,"%.3f GB/s",Bps / (Math.pow(10, 9)));
+        }
+        if(Bps >= Math.pow(10,6)){
+            return String.format(Locale.ENGLISH,"%.3f MB/s",Bps / (Math.pow(10, 6)));
+        }
+        if(Bps >= Math.pow(10,3)){
+            return String.format(Locale.ENGLISH,"%.3f KB/s",Bps / (Math.pow(10, 3)));
+        }
+        return String.format(Locale.ENGLISH,"%.3f B/s",Bps);
+    }
+
+    private String timeFormat(int seconds) {
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
         return String.format(Locale.ENGLISH,"%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-    private String fileSizeFormat(double fileSizeBytes){
+    private String fileSizeFormat(double fileSizeBytes) {
        if(fileSizeBytes >= Math.pow(1024, 3)){
            return String.format(Locale.ENGLISH,"%.2f GB",fileSizeBytes / (Math.pow(1024, 3)));
        }
@@ -149,7 +168,7 @@ public class DownloadSimulator{
         return String.format(Locale.ENGLISH,"%.2f B",fileSizeBytes);
     }
 
-    private boolean isSpeedSet(){
+    private boolean isSpeedSet() {
         return !editTextBandwidth.getText().toString().equals("");
     }
 }

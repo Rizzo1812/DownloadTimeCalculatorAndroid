@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5pt"
-            android:text="------"
+            android:text="Speed"
             android:textSize="10pt" />
 
         <Space
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5pt"
-            android:text="TextView"
+            android:text="Time to download"
             android:textSize="10pt" />
 
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5pt"
-            android:text="------"
+            android:text="Downloaded"
             android:textSize="10pt" />
 
         <Space
@@ -80,13 +80,21 @@
             android:id="@+id/textPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Percentage"
             android:textSize="10pt" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/deleteImgBtn"
+            android:layout_width="14pt"
+            android:layout_height="14pt"
+            android:backgroundTint="@color/black"
+
+            android:background="@android:drawable/ic_menu_delete" />
 
     </LinearLayout>
 
