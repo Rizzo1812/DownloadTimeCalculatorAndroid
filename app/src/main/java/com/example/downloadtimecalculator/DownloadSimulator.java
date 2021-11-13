@@ -27,7 +27,7 @@ public class DownloadSimulator {
     private final TextView textDownloaded;
     private final TextView textPercentage;
     private final ImageView deleteImgBtn;
-    private int secondsToDownload;
+    private long millisecondsToDownload;
     private double fileSize;
     private double bandwidth;
     private CountDownTimer clock;
@@ -57,7 +57,7 @@ public class DownloadSimulator {
         textPercentage.setText("");
         textPercentage.setTypeface(null, Typeface.NORMAL);
         deleteImgBtn.setVisibility(View.VISIBLE);
-        secondsToDownload = -1;
+        millisecondsToDownload = -1;
         fileSize = 0;
         bandwidth = 0;
     }
@@ -81,14 +81,14 @@ public class DownloadSimulator {
             bandwidth = 0;
         }
         if (bandwidth != 0) {
-            secondsToDownload = (int) Math.floor(fileSize / bandwidth);
-            textTime.setText(timeFormat(secondsToDownload));
+            millisecondsToDownload = (long) (Math.floor(fileSize / bandwidth *1000));
+            textTime.setText(timeFormat((int) millisecondsToDownload/1000));
         } else {
             if(fileSize == 0){
-                secondsToDownload = 0;
-                textTime.setText(timeFormat(secondsToDownload));
+                millisecondsToDownload = 0;
+                textTime.setText(timeFormat(0));
             }else {
-                secondsToDownload = -1;
+                millisecondsToDownload = -1;
                 textTime.setText("∞");
             }
         }
@@ -96,16 +96,16 @@ public class DownloadSimulator {
     }
 
     public void simulate(){
-        if(secondsToDownload == -1) return;
+        if(millisecondsToDownload == -1) return;
 
         deleteImgBtn.setVisibility(View.INVISIBLE);
-        final long timeNeeded = secondsToDownload * 1000L;
-        clock = new CountDownTimer(timeNeeded, 50) {
+
+        clock = new CountDownTimer(millisecondsToDownload, 50) {
             public void onTick(long millisUntilFinished) {
-                long finishedSeconds = timeNeeded - millisUntilFinished;
-                double percentage = (((double)finishedSeconds / (double) timeNeeded) * 100.0);
+                long finishedMilliseconds = millisecondsToDownload - millisUntilFinished;
+                double percentage = (((double)finishedMilliseconds / (double) millisecondsToDownload) * 100.0);
                 textPercentage.setText(String.format(Locale.ENGLISH,"%.2f%%",percentage));
-                textDownloaded.setText(fileSizeFormat(bandwidth * finishedSeconds / 1000));
+                textDownloaded.setText(fileSizeFormat(bandwidth * finishedMilliseconds / 1000));
                 progressBar.setProgress((int)percentage);
             }
 
@@ -160,6 +160,7 @@ public class DownloadSimulator {
     }
 
     private String timeFormat(int seconds) {
+        if(seconds == 0) return "00:00:00";
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
