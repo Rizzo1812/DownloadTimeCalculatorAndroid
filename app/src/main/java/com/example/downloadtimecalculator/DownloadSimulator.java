@@ -1,7 +1,10 @@
 package com.example.downloadtimecalculator;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 public class DownloadSimulator {
@@ -27,6 +32,7 @@ public class DownloadSimulator {
     private double bandwidth;
     private CountDownTimer clock;
     public boolean ready;
+    NumberFormat numberFormat = new DecimalFormat("##.###");
 
     public DownloadSimulator(View view,Activity mainActivity) {
         this.mainActivity = mainActivity;
@@ -44,10 +50,12 @@ public class DownloadSimulator {
         ready = false;
         if(clock != null) clock.cancel();
         progressBar.setProgress(0);
+        progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,127,255)));
         textSpeed.setText("");
         textTime.setText("");
         textDownloaded.setText("");
         textPercentage.setText("");
+        textPercentage.setTypeface(null, Typeface.NORMAL);
         deleteImgBtn.setVisibility(View.VISIBLE);
         secondsToDownload = -1;
         fileSize = 0;
@@ -101,9 +109,12 @@ public class DownloadSimulator {
                 progressBar.setProgress((int)percentage);
             }
 
+            @SuppressLint("SetTextI18n")
             public void onFinish() {
                 progressBar.setProgress(100);
                 textPercentage.setText("100%");
+                textPercentage.setTypeface(null, Typeface.BOLD);
+                progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,192,0)));
                 textDownloaded.setText(fileSizeFormat(fileSize));
             }
         };
@@ -137,15 +148,15 @@ public class DownloadSimulator {
 
     private String speedFormat(double Bps) {
         if(Bps >= Math.pow(10,9)){
-            return String.format(Locale.ENGLISH,"%.3f GB/s",Bps / (Math.pow(10, 9)));
+            return String.format(Locale.ENGLISH,"%s GB/s",numberFormat.format(Bps / (Math.pow(10, 9))));
         }
         if(Bps >= Math.pow(10,6)){
-            return String.format(Locale.ENGLISH,"%.3f MB/s",Bps / (Math.pow(10, 6)));
+            return String.format(Locale.ENGLISH,"%s MB/s",numberFormat.format(Bps / (Math.pow(10, 6))));
         }
         if(Bps >= Math.pow(10,3)){
-            return String.format(Locale.ENGLISH,"%.3f KB/s",Bps / (Math.pow(10, 3)));
+            return String.format(Locale.ENGLISH,"%s KB/s",numberFormat.format(Bps / (Math.pow(10, 3))));
         }
-        return String.format(Locale.ENGLISH,"%.3f B/s",Bps);
+        return String.format(Locale.ENGLISH,"%s B/s",numberFormat.format(Bps));
     }
 
     private String timeFormat(int seconds) {

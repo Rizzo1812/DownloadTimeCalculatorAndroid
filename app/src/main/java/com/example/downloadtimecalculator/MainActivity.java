@@ -3,10 +3,10 @@ package com.example.downloadtimecalculator;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout layout;
     NestedScrollView scrollView;
     EditText editTxtFileSize;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch switchRunning;
     Button buttonCalc;
     FloatingActionButton floatingAddSimulator;
@@ -39,23 +40,20 @@ public class MainActivity extends AppCompatActivity {
         addNewDownloader();
 
         switchRunning = (Switch) findViewById(R.id.switchRunning);
-        switchRunning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    buttonCalc.setEnabled(false);
-                    floatingAddSimulator.setVisibility(View.INVISIBLE);
-                    for (DownloadSimulator simulator : listOfDownloadSimulators) {
-                        simulator.simulate();
-                    }
-                }else{
-                    for (DownloadSimulator simulator : listOfDownloadSimulators) {
-                        simulator.reset();
-                    }
-                    switchRunning.setEnabled(false);
-                    floatingAddSimulator.setVisibility(View.VISIBLE);
-                    buttonCalc.setEnabled(true);
+        switchRunning.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                buttonCalc.setEnabled(false);
+                floatingAddSimulator.setVisibility(View.INVISIBLE);
+                for (DownloadSimulator simulator : listOfDownloadSimulators) {
+                    simulator.simulate();
                 }
+            }else{
+                for (DownloadSimulator simulator : listOfDownloadSimulators) {
+                    simulator.reset();
+                }
+                switchRunning.setEnabled(false);
+                floatingAddSimulator.setVisibility(View.VISIBLE);
+                buttonCalc.setEnabled(true);
             }
         });
 
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addNewDownloader(){
-        View newDownloaderView = getLayoutInflater().inflate(R.layout.download_simulator, null);
+        @SuppressLint("InflateParams") View newDownloaderView = getLayoutInflater().inflate(R.layout.download_simulator, null);
         layout.addView(newDownloaderView);
         DownloadSimulator newDownloaderSimulator = new DownloadSimulator(newDownloaderView,this);
         listOfDownloadSimulators.add(newDownloaderSimulator);
