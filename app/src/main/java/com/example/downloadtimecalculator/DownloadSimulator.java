@@ -82,7 +82,7 @@ public class DownloadSimulator {
         }
         if (bandwidth != 0) {
             millisecondsToDownload = (long) (Math.floor(fileSize / bandwidth *1000));
-            textTime.setText(timeFormat((int) millisecondsToDownload/1000));
+            textTime.setText(timeFormat(millisecondsToDownload));
         } else {
             if(fileSize == 0){
                 millisecondsToDownload = 0;
@@ -159,12 +159,31 @@ public class DownloadSimulator {
         return String.format(Locale.ENGLISH,"%s B/s",numberFormat.format(Bps));
     }
 
-    private String timeFormat(int seconds) {
-        if(seconds == 0) return "00:00:00";
-        int hours = seconds / 3600;
-        int minutes = (seconds % 3600) / 60;
-        seconds = seconds % 60;
-        return String.format(Locale.ENGLISH,"%02d:%02d:%02d", hours, minutes, seconds);
+    private String timeFormat(long milliseconds) {
+        if(milliseconds == 0) return "Instant";
+        long seconds = milliseconds / 1000L;
+        if(seconds >= 31536000000L) {//1000 years
+            return "> 1000 years";
+        }
+        if(seconds >= 31536000L) { //1 year
+            long years = seconds / 31536000L;
+            long months = (seconds % 31536000L) / 2592000L;
+            long days = ((seconds % 31536000L) % 2592000L) / 86400L;
+            return String.format(Locale.ENGLISH,"%03dy %02dm %02dd", years, months, days);
+        }
+        if(seconds >= 172800L) { //2 days
+            long months = seconds / 2592000L;
+            long days = (seconds % 2592000L) / 86400L;
+            long hours = ((seconds % 2592000L) % 86400L) / 3600L;
+            return String.format(Locale.ENGLISH,"%02dm %02dd %02dh", months, days, hours);
+        }
+        if(seconds >= 60) { //1 minute
+            long hours = seconds / 3600;
+            long minutes = (seconds % 3600) / 60;
+            seconds = seconds % 60;
+            return String.format(Locale.ENGLISH,"%02dh %02dm %02ds", hours, minutes, seconds);
+        }
+        return  String.format(Locale.ENGLISH,"%02ds %03dms", seconds, milliseconds % 1000L);
     }
 
     private String fileSizeFormat(double fileSizeBytes) {
