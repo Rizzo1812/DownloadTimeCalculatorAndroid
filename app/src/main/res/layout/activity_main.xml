@@ -31,7 +31,8 @@
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
                     android:maxLength="8"
-                    android:text="" />
+                    android:text=""
+                    tools:ignore="HardcodedText" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupSize"
@@ -45,31 +46,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="KB" />
+                        android:text="KB"
+                        tools:ignore="HardcodedText" />
 
                     <RadioButton
                         android:id="@+id/radioButtonMB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="MB" />
+                        android:text="MB"
+                        tools:ignore="HardcodedText" />
 
                     <RadioButton
                         android:id="@+id/radioButtonGB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="GB" />
+                        android:text="GB"
+                        tools:ignore="HardcodedText" />
                 </RadioGroup>
 
                 <Button
                     android:id="@+id/buttonCalc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:onClick="onBtnCalcClick"
-                    android:text="Calc"/>
+                    android:text="Calc"
+                    tools:ignore="HardcodedText,UsingOnClickInXml" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,21 +96,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Kb/s" />
+                        android:text="Kb/s"
+                        tools:ignore="HardcodedText" />
 
                     <RadioButton
                         android:id="@+id/radioButtonMbps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Mb/s" />
+                        android:text="Mb/s"
+                        tools:ignore="HardcodedText" />
 
                     <RadioButton
                         android:id="@+id/radioButtonGbps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Gb/s" />
+                        android:text="Gb/s"
+                        tools:ignore="HardcodedText" />
 
                 </RadioGroup>
 
@@ -118,12 +126,13 @@
                     android:id="@+id/switchRunning"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:layout_weight="1"
                     android:text="Simulate"
                     android:thumbTint="@color/teal_200"
                     tools:checked="false"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
 
             </LinearLayout>
 
@@ -143,6 +152,7 @@
         android:onClick="onBtnAddClick"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#AB673AB7"
-        app:fabSize="mini" />
+        app:fabSize="mini"
+        tools:ignore="ContentDescription,UsingOnClickInXml" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
