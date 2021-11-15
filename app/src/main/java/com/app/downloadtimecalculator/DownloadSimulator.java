@@ -1,4 +1,4 @@
-package com.example.downloadtimecalculator;
+package com.app.downloadtimecalculator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

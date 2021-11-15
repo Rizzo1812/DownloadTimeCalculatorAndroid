@@ -1,4 +1,4 @@
-package com.example.downloadtimecalculator;
+package com.app.downloadtimecalculator;
 
 import org.junit.Test;
 

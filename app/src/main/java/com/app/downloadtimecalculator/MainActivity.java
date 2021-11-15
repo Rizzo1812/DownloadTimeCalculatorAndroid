@@ -1,4 +1,4 @@
-package com.example.downloadtimecalculator;
+package com.app.downloadtimecalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
