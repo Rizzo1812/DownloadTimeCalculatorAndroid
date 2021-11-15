@@ -75,15 +75,12 @@ public class DownloadSimulator {
         bandwidth = convertToBps(bandwidth, ((RadioButton) (mainActivity.findViewById(selectedRadioID))).getText().toString());
         textSpeed.setText(speedFormat(bandwidth));
 
-        if(bandwidth <= 1){
-            editTextBandwidth.setText("0");
-            textSpeed.setText("~0 B/s");
-            bandwidth = 0;
-        }
+
         if (bandwidth != 0) {
-            millisecondsToDownload = (long) (Math.floor(fileSize / bandwidth *1000));
-            textTime.setText(timeFormat(millisecondsToDownload));
-        } else {
+            if(bandwidth <= 1) textSpeed.setText("~0 B/s");
+                millisecondsToDownload = (long) (Math.floor(fileSize / bandwidth * 1000));
+                textTime.setText(timeFormat(millisecondsToDownload));
+        }else {
             if(fileSize == 0){
                 millisecondsToDownload = 0;
                 textTime.setText(timeFormat(0));
