@@ -50,7 +50,7 @@ public class DownloadSimulator {
         ready = false;
         if(clock != null) clock.cancel();
         progressBar.setProgress(0);
-        progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,127,255)));
+        progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(31,78,255)));
         textSpeed.setText("");
         textTime.setText("");
         textDownloaded.setText("");
@@ -111,7 +111,7 @@ public class DownloadSimulator {
                 progressBar.setProgress(100);
                 textPercentage.setText("100%");
                 textPercentage.setTypeface(null, Typeface.BOLD);
-                progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,192,0)));
+                progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(0,160,0)));
                 textDownloaded.setText(fileSizeFormat(fileSize));
             }
         };

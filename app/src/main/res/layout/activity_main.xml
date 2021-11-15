@@ -129,7 +129,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_weight="1"
                     android:text="Simulate"
-                    android:thumbTint="@color/teal_200"
+                    android:thumbTint="@color/light_blue_200"
                     tools:checked="false"
                     android:enabled="false"
                     tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
@@ -148,10 +148,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:backgroundTint="#673AB7"
+        android:backgroundTint="@color/light_blue_700"
         android:onClick="onBtnAddClick"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#AB673AB7"
+        app:backgroundTint="@color/light_blue_700"
         app:fabSize="mini"
         tools:ignore="ContentDescription,UsingOnClickInXml" />
 

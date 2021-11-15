@@ -60,9 +60,9 @@
             android:layout_width="13pt"
             android:layout_height="13pt"
             android:background="@android:drawable/ic_menu_delete"
-            android:backgroundTint="@color/black"
-            tools:ignore="ContentDescription" />
-
+            tools:ignore="ContentDescription"
+            android:backgroundTintMode="multiply"
+            android:backgroundTint="@color/light_gray"/>
 
     </LinearLayout>
 
