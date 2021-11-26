@@ -6,6 +6,7 @@ import androidx.core.widget.NestedScrollView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnCalcClick(View view) {
         View current = getCurrentFocus();
+        hideKeyboard(view);
         if (current != null) current.clearFocus();
 
         if(editTxtFileSize.getText().toString().isEmpty() || editTxtFileSize.getText().toString().equals(".")){
@@ -100,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }else{
             if(listOfDownloadSimulators.size() > 0){
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
+
                 for (DownloadSimulator simulator : listOfDownloadSimulators) {
                     simulator.calcDownloadTime();
                     if(simulator.ready) switchRunning.setEnabled(true);
@@ -109,5 +114,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public void hideKeyboard(View view){
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
     }
 }
